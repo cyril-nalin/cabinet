@@ -26,7 +26,7 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
             } else {
                 echo '<table><caption>Liste des rendez-vous</caption>';
                 echo '<thead><tr><th>Nom</th><th>Prénom</th><th>Type de soin</th><th>Date RDV</th></tr><tbody>';
-                var_dump($rdv);
+
                 foreach($rdv as $r) {
                     $infos = $opersonels->getByClientId($r['client_id']);
                     echo '<tr>';
