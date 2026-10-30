@@ -8,7 +8,14 @@ $rdv = $o->getAll();
 
 $opersonels = new Person();
 
-
+$type_gest = $_GET['q'] ?? 'rdv';
+/**
+Gestion des rendez-vous : Voir, modifier, confirmer ou annuler les rendez-vous pris par les patients.
+Gestion des services : Ajouter, modifier ou supprimer les services offerts par le cabinet.
+Gestion des actualités : Ajouter, modifier ou supprimer des actualités.
+Gestion des patients : Voir, ajouter, modifier ou supprimer des patients.
+Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
+ */
 ?>
     <main>
         <section>
@@ -19,6 +26,7 @@ $opersonels = new Person();
             } else {
                 echo '<table><caption>Liste des rendez-vous</caption>';
                 echo '<thead><tr><th>Nom</th><th>Prénom</th><th>Type de soin</th><th>Date RDV</th></tr><tbody>';
+                var_dump($rdv);
                 foreach($rdv as $r) {
                     $infos = $opersonels->getByClientId($r['client_id']);
                     echo '<tr>';
