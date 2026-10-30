@@ -1,0 +1,95 @@
+body {
+
+    min-width: 400px;
+    color:black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    background-color: black;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+#entire_body {
+    background-color: red;
+}
+
+#header_block {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+}
+
+#header_block_top {
+    display: flex;
+    align-items: center;
+}
+
+#header_block_topr {
+    width: 100%;
+    background-color: aquamarine;
+    text-align: center;
+}
+
+#header_block_bottom {
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: end;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+#header_block_bottom a {
+    display: block;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#site_footer {
+    background-color: aliceblue;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+#body_content {
+    background-color: whitesmoke;
+    margin: 10px;
+}
+
+caption {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px;
+}
+
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+thead {
+    font-size: 16px;
+}
+
+td, th{
+    border: 1px solid black;
+    padding: 8px;
+}
+
+@media(max-width: 800px) {
+    body {
+        background-color: red;
+    }
+    #header_block_top {
+        flex-direction: column;
+    }
+    #header_block_bottom {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
