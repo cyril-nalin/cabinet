@@ -13,12 +13,8 @@ class RendezVous
 
     public function getAll(): array
     {
-        $sql = "SELECT *
-                FROM rdv
-                ORDER BY date_rdv ASC";
-
+        $sql = "SELECT * FROM `rdv` ORDER BY `date_rdv` ASC";
         $requete = $this->db->query($sql);
-
         return $requete->fetchAll();
     }
 }

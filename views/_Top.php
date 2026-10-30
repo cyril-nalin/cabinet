@@ -1,8 +1,3 @@
-<?php
-if( !isset($_SESSION) ) {
-    session_start();
-}
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,6 +6,7 @@ if( !isset($_SESSION) ) {
     <title>Cabinet dentaire</title>
     <link rel="stylesheet" href="./assets/css/main.css"/>
     <link rel="icon" href="./assets/images/favicon.ico"/>
+    <script type="text/javascript" src="./assets/js/main.js"></script>
     <?php
     if(isset($EXTRA_HTML_HDRS)) {
         echo $EXTRA_HTML_HDRS;
@@ -42,8 +38,11 @@ if( !isset($_SESSION) ) {
                         </div>
 
                         <div id="header_block_bottom_conlinks">
-                            <input type="button" id="btn_connect" value="Connexion" />
-                            <input type="button" id="btn_test" value="Test" />
+                            <?php if(FALSE === $LOG_STATE) {?>
+                            <input type="button" id="btn_connect" value="Connexion" onclick="window.location.assign('index.php?page=login')" />
+                            <?php }else {?>
+                            <input type="button" id="btn_test" value="Déconnexion" onclick="window.location.assign('index.php?page=logout')"/>
+                            <?php }?>
                         </div>
 
                     </div>
@@ -51,4 +50,9 @@ if( !isset($_SESSION) ) {
 
             </div>
         </header>
-        <div id="body_content">
+        <div id="body_content"><?php 
+        if(isset($_SESSION['prenom'])) {
+            echo '<h2>Bienvenue ', $_SESSION['prenom'], '</h2>';
+        }
+        
+        ?>

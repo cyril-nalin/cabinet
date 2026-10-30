@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Database.php';
+require_once __DIR__ . '/Crypto.php';
 
 class Person
 {
@@ -47,6 +48,26 @@ class Person
             return FALSE;
         }
         return $ret;
+    }
+
+    public function validateLogin($email, $password)
+    {
+        $k = keygen($password);
+        try {
+            $sql = 'SELECT `nom`,`prenom`,`email`,`access` FROM `person` WHERE `email` = :mail AND `pwd` = :password';
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                'mail'   => $email,
+                'password' => $k
+            ]);
+            return $stmt->fetch();
+            //return (1 === $stmt->rowCount());
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
+            return FALSE;
+        }
+        return FALSE;
     }
 }
 ?>
