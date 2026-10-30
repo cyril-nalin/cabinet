@@ -1,6 +1,6 @@
 body {
 
-    min-width: 400px;
+    min-width: 360px;
     color:black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
@@ -32,7 +32,39 @@ body {
     background-color: aquamarine;
     text-align: center;
 }
+#header_block_bottom {
+    display: flex;
+    height: 30px;
+}
 
+#header_block_bottom_reglinks {
+    display: flex;
+    gap: 8px;
+    box-sizing:border-box;
+}
+
+#header_block_bottom_reglinks a {
+    display: block;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#header_block_bottom_reglinks a:hover {
+    border: 1px dashed black;
+    margin:-1px;
+}
+
+#header_block_bottom_conlinks {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+#header_block_bottom_conlinks input:hover{
+    cursor: pointer;
+}
+
+/*
 #header_block_bottom {
     background-color: cadetblue;
     display: flex;
@@ -41,13 +73,8 @@ body {
     justify-content: end;
     margin-right: 10px;
     padding: 10px;
-}
+}*/
 
-#header_block_bottom a {
-    display: block;
-    text-decoration: none;
-    font-size: 18px;
-}
 
 #site_footer {
     background-color: aliceblue;
@@ -59,6 +86,7 @@ body {
 #body_content {
     background-color: whitesmoke;
     margin: 10px;
+    min-height: 400px;
 }
 
 caption {
@@ -86,10 +114,12 @@ td, th{
         background-color: red;
     }
     #header_block_top {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
     #header_block_bottom {
+        height: auto;
+    }
+    #header_block_bottom_reglinks,  #header_block_bottom_conlinks{
         flex-direction: column;
-        gap: 5px;
     }
 }

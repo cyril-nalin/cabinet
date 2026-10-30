@@ -3,7 +3,7 @@ require_once __DIR__ . '/_Top.php';
 ?>
     <main>
         <section>
-            <p>BLABLABLA</p>
+            <p>TODO: les news</p>
         </section>
     </main>
 <?php

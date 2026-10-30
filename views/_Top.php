@@ -30,13 +30,23 @@ if( !isset($_SESSION) ) {
                     </div>
                 </div>
 
-                <nav id="header_block_bottom">
-                    <a href="index.php?page=accueil">Accueil</a>
-                    <a href="index.php?page=rendez-vous">Prendre rendez-vous</a>
-                    <a href="index.php?page=services">Nos services</a>
-                    <a href="index.php?page=about">À propos</a>
+                <nav>
+                    <div id="header_block_bottom">
+                        <div id="header_block_bottom_reglinks">
+                            <a href="index.php?page=accueil">Accueil</a>
+                            <a href="index.php?page=rendez-vous">Prendre rendez-vous</a>
+                            <a href="index.php?page=services">Nos services</a>
+                            <a href="index.php?page=about">À propos</a>
 
-                    <a href="index.php?page=about">Gestion</a>
+                            <a href="index.php?page=gestion">Gestion</a>
+                        </div>
+
+                        <div id="header_block_bottom_conlinks">
+                            <input type="button" id="btn_connect" value="Connexion" />
+                            <input type="button" id="btn_test" value="Test" />
+                        </div>
+
+                    </div>
                 </nav>
 
             </div>

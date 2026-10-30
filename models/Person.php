@@ -43,7 +43,6 @@ class Person
             ]);
             $ret =  $stmt->fetch();
         } catch (PDOException $e) {
-            // Gestion des erreurs
             throw new PDOException($e->getMessage(), (int)$e->getCode());
             return FALSE;
         }
