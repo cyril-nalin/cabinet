@@ -43,8 +43,7 @@ async function runGetRdvsDatas(dstId) {
                     blk.classList.add('rdv_block_editable');
                     edate_rdv.setAttribute('type', 'text');
 
-                    dte = new Date(rdv.date_rdv);
-                    edate_rdv.value = dte.toLocaleString();
+                    edate_rdv.value = rdv.date_rdv;
                     blk.appendChild(edate_rdv);
 
                     i = 0;
@@ -76,9 +75,36 @@ async function runGetRdvsDatas(dstId) {
                     btn_edit.setAttribute('type', 'button');
                     btn_edit.value = 'Modifier';
                     btn_edit.addEventListener('click', e => {
-                        const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4} \d{2}:\d{2}:\d{2}$/;
+                        const regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
                         if(!regex.test(edate_rdv.value)) {
-                            alert('Date invalide (' + edate_rdv.value + '), format demandé: JJ/MM/AAAA hh:mm:ss');
+                            alert('Date invalide (' + edate_rdv.value + '), format demandé: AAAA/MM/JJ hh:mm:ss');
+                        } else {
+                            /*dte = new Date(edate_rdv.value);
+                            console.log( dte.toISOString() );
+                            console.log( dte.toString() );
+                            console.log( dte.toString() );*/
+                            fetch('./models/Queries.php?q=upd_rdvs', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    id: rdv.id,
+                                    date_rdv: edate_rdv.value,
+                                    type_soin: etype_soin.value,
+                                    confirm: econfirm.value
+                                })
+                            })
+                            .then(r => r.text())
+                            .then(data => {
+
+                                if('1' === data) {
+                                    alert("Modification faite!");
+                                } else {
+                                    alert("Aucune modification faite!");
+                                }
+                            })
+                            
                         }
                     });
                     blk.appendChild(btn_edit);

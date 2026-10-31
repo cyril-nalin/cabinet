@@ -24,7 +24,19 @@ class RendezVous
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['mail' => $email]);
         return $stmt->fetchAll();
+    }
 
+    public function updateFull($id, $date, $confirm, $type_soin): int
+    {
+        $sql = 'UPDATE `rdv` SET `date_rdv` = :date_rdv, `confirm` = :confirm, `type_soin` = :type_soin WHERE `id` = :id';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+                'id' => $id,
+                'date_rdv' => $date,
+                'confirm' => $confirm,
+                'type_soin' => $type_soin
+            ]);
+        return $stmt->rowCount();
     }
 }
 ?>

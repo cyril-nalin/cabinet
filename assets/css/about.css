@@ -1,0 +1,77 @@
+#aboutus img {
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+#aboutus {
+    box-sizing: border-box;
+}
+
+#aboutus_title {
+    background-color:aqua;
+    text-align: center;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+#about_dr {
+    display: flex;
+}
+
+#about_dr_presentation {
+    margin-left: 10px;
+    max-width: 600px;
+}
+
+#about_dr_what, #about_dr_job{
+    color: brown;
+}
+
+#about_dr_who {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#about_dr_parcour {
+    background-color:aqua;
+    text-align: center;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+#about_dr_parcour_content {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.about_dr_parcour_small_block {
+    border: 2px solid silver;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.about_dr_parcour_small_block_what {
+    font-weight: bold;
+}
+
+#about_team_title {
+    text-align: center;
+}
+
+#about_team_main {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+#about_team_main img {
+    width: 400px;
+    height: 300px;
+    border-radius: 40px;
+}
+
+.about_team_block_who {
+    font-weight: bold;
+}

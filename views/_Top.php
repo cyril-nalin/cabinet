@@ -41,6 +41,7 @@
 
                         <div id="header_block_bottom_conlinks">
                             <?php if(!isset($LOG_STATE) || FALSE === $LOG_STATE) {?>
+                            <input type="button" id="btn_register" value="Inscription" onclick="window.location.assign('index.php?page=register')" />
                             <input type="button" id="btn_connect" value="Connexion" onclick="window.location.assign('index.php?page=login')" />
                             <?php }else {?>
                             <input type="button" id="btn_test" value="Déconnexion" onclick="window.location.assign('index.php?page=logout')"/>
@@ -54,7 +55,7 @@
         </header>
         <div id="body_content"><?php 
         if(isset($_SESSION['prenom'])) {
-            echo '<h2>Bienvenue ', $_SESSION['prenom'], '</h2>';
+           // echo '<h2>Bienvenue ', $_SESSION['prenom'], '</h2>';
         }
         
         ?>

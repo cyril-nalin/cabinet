@@ -28,7 +28,15 @@ switch($q) {
             header('Content-Type: application/json');
             echo json_encode($ret);
         }
-        break;
+    break;
+
+    case 'upd_rdvs':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new RendezVous();
+            echo $o->updateFull($j->id, $j->date_rdv, $j->confirm, $j->type_soin);
+        }
+    break;
 
     default: break;
 }

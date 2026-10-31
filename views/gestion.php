@@ -22,7 +22,7 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
             
             <?php
             if(0 === strcmp('rdv', $type_gest)) {
-                echo '<h1>Gestion des rendez-vous</h1><div id="block_gest">';
+                echo '<h3>Gestion des rendez-vous</h3><div id="block_gest">';
 
                 // PHP Query 
                 /*

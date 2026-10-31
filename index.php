@@ -16,6 +16,7 @@ $pages = [
     'services' => 'services',
     'about' => 'about',
     'gestion' => 'gestion',
+    'register' => 'register',
     'login' => 'login',
     'logout' => 'logout'
 ];
