@@ -26,7 +26,19 @@ class RendezVous
         return $stmt->fetchAll();
     }
 
-    public function updateFull($id, $date, $confirm, $type_soin): int
+    public function add($client_id, $date_rdv, $type_soin, $confirm = 0): int
+    {
+        $sql = 'INSERT INTO `rdv` (`client_id`, `date_rdv`, `type_soin`, `confirm`) VALUES (:client_id, :date_rdv, :type_soin, :confirm)';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+                'client_id' => $client_id,
+                'date_rdv' => $date_rdv,
+                'type_soin' => $type_soin,
+                'confirm' => $confirm
+            ]);
+        return $stmt->rowCount();
+    }
+    public function upd($id, $date, $confirm, $type_soin): int
     {
         $sql = 'UPDATE `rdv` SET `date_rdv` = :date_rdv, `confirm` = :confirm, `type_soin` = :type_soin WHERE `id` = :id';
         $stmt = $this->db->prepare($sql);
@@ -35,6 +47,16 @@ class RendezVous
                 'date_rdv' => $date,
                 'confirm' => $confirm,
                 'type_soin' => $type_soin
+            ]);
+        return $stmt->rowCount();
+    }
+
+    public function del($id): int
+    {
+        $sql = 'DELETE FROM `rdv` WHERE `id` = :id';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+                'id' => $id
             ]);
         return $stmt->rowCount();
     }

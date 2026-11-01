@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/RendezVous.php';
 require_once __DIR__ . '/Person.php';
+require_once __DIR__ . '/News.php';
 
 $q = $_GET['q'] ?? NULL;
 
@@ -34,7 +35,63 @@ switch($q) {
         $j = @json_decode(@file_get_contents('php://input'));
         if(is_object($j)) {
             $o = new RendezVous();
-            echo $o->updateFull($j->id, $j->date_rdv, $j->confirm, $j->type_soin);
+            echo $o->upd($j->id, $j->date_rdv, $j->confirm, $j->type_soin);
+        }
+    break;
+
+    case 'del_rdvs':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new RendezVous();
+            echo $o->del($j->id);
+        }
+    break;
+
+    case 'add_news':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new News();
+            echo $o->add($j->client_id, $j->date_news, $j->titre, $j->contenu, $j->lien_media, $j->visible);
+        }
+    break;
+
+    case 'upd_news':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new News();
+            echo $o->upd($j->id, $j->titre, $j->contenu, $j->lien_media, $j->visible);
+        }
+    break;
+
+    case 'del_news':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new News();
+            echo $o->del($j->id);
+        }
+    break;
+
+    case 'reg':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new Person();
+            echo $o->add($j->nom, $j->prenom, $j->email, $j->password);
+        }
+    break;
+
+    case 'del_person':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new Person();
+            echo $o->del($j->id);
+        }
+    break;
+
+    case 'upd_person':
+        $j = @json_decode(@file_get_contents('php://input'));
+        if(is_object($j)) {
+            $o = new Person();
+            echo $o->upd($j->id, $j->nom, $j->prenom, $j->email, $j->password);
         }
     break;
 

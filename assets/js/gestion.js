@@ -103,7 +103,7 @@ async function runGetRdvsDatas(dstId) {
                                 } else {
                                     alert("Aucune modification faite!");
                                 }
-                            })
+                            });
                             
                         }
                     });
@@ -112,7 +112,25 @@ async function runGetRdvsDatas(dstId) {
                     btn_del.setAttribute('type', 'button');
                     btn_del.value = 'Supprimer';
                     btn_del.addEventListener('click', e => {
-
+                        fetch('./models/Queries.php?q=del_rdvs', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id: rdv.id
+                            })
+                        })
+                        .then(r => r.text())
+                        .then(data => {
+                            if('1' === data) {
+                                alert("RDV supprimé!");
+                                //erdv.classList.add('hidden_block');
+                                erdv.style.display = 'none';
+                            } else {
+                                alert("Aucune modification faite!");
+                            }
+                        });
                     });
                     blk.appendChild(btn_del);
 

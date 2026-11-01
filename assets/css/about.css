@@ -75,3 +75,9 @@
 .about_team_block_who {
     font-weight: bold;
 }
+
+@media(max-width: 1000px) {
+    #about_team_main {
+        flex-direction: column;
+    }
+}

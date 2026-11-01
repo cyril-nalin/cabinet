@@ -55,6 +55,7 @@ require_once __DIR__ . '/_Top.php';
                                 <div class="about_dr_parcour_small_block_what">Formation en dentisterie esthétique</div>
                                 <div class="about_dr_parcour_small_block_where">Perfectionnement aux nouvelles techniques.</div>
                             </div>
+                            
                         </div>
                     </div>
                 </article>
@@ -84,6 +85,19 @@ require_once __DIR__ . '/_Top.php';
                                 <p class="about_team_block_who">Julie Bernard</p>
                                 <p class="about_team_block_what">Secrétaire médicale</p>
                             </div>
+
+                            <div class="about_team_block">
+                                <img src="./assets/images/dredentist.png" alt="Membre equipe Andre Young"/>
+                                <p class="about_team_block_who">Andre Young</p>
+                                <p class="about_team_block_what">Expert en son pour les dents</p>
+                            </div>
+
+                            <div class="about_team_block">
+                                <img src="./assets/images/thecat.png" alt="Membre equipe Beerus"/>
+                                <p class="about_team_block_who">Beerus</p>
+                                <p class="about_team_block_what">Expert en cassage de dents pour enfants</p>
+                            </div>
+
                         </div>
                     </div>
                 </article>

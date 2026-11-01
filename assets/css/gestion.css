@@ -3,6 +3,7 @@
     background-color: lightgrey;
     margin: 10px;
 }
+
 .rdv_block_personal {
     display: flex;
     gap: 20px;
@@ -15,8 +16,16 @@
 .rdv_block_btns {
     display: flex;
     gap:10px;
+    border-radius: 10px;
 }
 
+.rdv_block_btns input:hover {
+    cursor: pointer;
+}
+
+.hidden_block {
+    display: none;
+}
 @media(max-width:500px) {
     .rdv_block_personal {
         flex-direction: column;

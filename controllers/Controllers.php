@@ -25,6 +25,32 @@ class Controllers {
 			exit;
 		}
 		$LOG_STATE = (array_key_exists('state', $_SESSION) && TRUE === $_SESSION['state']);
+		$LOG_LEVEL = 0;
+		if(TRUE === $LOG_STATE ) {
+			switch($_SESSION['access']) {
+				case 'ADMIN': $LOG_LEVEL = 3; break;
+				case 'PERSONNEL': $LOG_LEVEL = 2; break;
+				case 'CLIENT': $LOG_LEVEL = 1; break;
+				default:  break;
+			}
+		}
+
+		switch($this->page) {
+			case 'rendez-vous':
+				if($LOG_LEVEL < 1) {
+					header('Location: ./index.php?page=login');
+					exit;
+				}
+			break;
+
+			case 'gestion':
+				if($LOG_LEVEL < 2) {
+					header('Location: ./index.php?page=login');
+					exit;
+				}
+			default: break;
+
+		}
 		require __DIR__ . '/../views/' . $this->page . '.' . $this->ftype;
 	}
 }
