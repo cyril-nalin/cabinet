@@ -151,12 +151,19 @@ nav {
     color: gray;
 }
 
-#rdv_form_container {
+#form_container {
     margin-top: 20px;
+    background-color: aqua;
+    border: 2px solid silver;
+    padding: 10px;
 }
 
-.rdv_form_container_item {
+.form_container_item {
     margin-bottom: 15px;
+}
+
+#form_container select:hover, #form_container button:hover, .form_btn input:hover{
+    cursor: pointer;
 }
 .form_block {
     margin: 10px;

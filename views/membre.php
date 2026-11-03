@@ -52,34 +52,36 @@ $person = $o->getByClientId($_SESSION['client_id'] ?? NULL);
             }
             if($bshow_form) {
                 ?>
-            <form id="form_membre" method="POST" action="index.php?page=membre" enctype="multipart/form-data">
-                <h3>Mes informations</h3>
-                <div class="form_block">
-                    <label for="nom">Nom:</label><br />
-                    <input type="text" name="nom" id="nom" value="<?php echo $person['nom'] ?? ''; ?>" required/>
-                </div>
-                <div class="form_block">
-                    <label for="prenom">Prénom:</label><br />
-                    <input type="text" name="prenom" id="prenom" value="<?php echo $person['prenom'] ?? ''; ?>" required/>
-                </div>
-                <!--
-                <div class="form_block">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value="<?php echo $person['email'] ?? ''; ?>" required/>
-                </div>
--->
-                <div class="form_block">
-                    <label for="mdp">Mot de passe:</label><br />
-                    <input type="password" name="mdp" id="mdp"/>
-                </div>
-                <div class="form_block">
-                    <label for="mdp_confirm">Confirmer le mot de passe:</label><br />
-                    <input type="password" name="mdp_confirm" id="mdp_confirm"/>
-                </div>
-                <div class="form_block">
-                    <input type="submit" value="Mettre à jour mes informations"/>
-                </div>
-            </form>
+            <div id="form_container">
+                <form id="form_membre" method="POST" action="index.php?page=membre" enctype="multipart/form-data">
+                    <h3>Mes informations</h3>
+                    <div class="form_container_item">
+                        <label for="nom">Nom:</label><br />
+                        <input type="text" name="nom" id="nom" value="<?php echo $person['nom'] ?? ''; ?>" required/>
+                    </div>
+                    <div class="form_container_item">
+                        <label for="prenom">Prénom:</label><br />
+                        <input type="text" name="prenom" id="prenom" value="<?php echo $person['prenom'] ?? ''; ?>" required/>
+                    </div>
+                    <!--
+                    <div class="form_container_item">
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" value="<?php echo $person['email'] ?? ''; ?>" required/>
+                    </div>
+    -->
+                    <div class="form_container_item">
+                        <label for="mdp">Mot de passe:</label><br />
+                        <input type="password" name="mdp" id="mdp"/>
+                    </div>
+                    <div class="form_container_item">
+                        <label for="mdp_confirm">Confirmer le mot de passe:</label><br />
+                        <input type="password" name="mdp_confirm" id="mdp_confirm"/>
+                    </div>
+                    <div class="form_container_item form_btn">
+                        <input type="submit" value="Mettre à jour mes informations"/>
+                    </div>
+                </form>
+            </div>
             <?php
             }?>
             </div>

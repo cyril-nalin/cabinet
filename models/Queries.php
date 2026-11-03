@@ -2,6 +2,7 @@
 require_once __DIR__ . '/RendezVous.php';
 require_once __DIR__ . '/Person.php';
 require_once __DIR__ . '/News.php';
+require_once __DIR__ . '/Service.php';
 
 $q = $_GET['q'] ?? NULL;
 /*
@@ -127,6 +128,11 @@ switch($q) {
             $o = new Person();
             echo $o->upd($j->id, $j->nom, $j->prenom, $j->email);
         }
+    break;
+
+    case 'getall_service':
+        $o = new Service();
+        echo json_encode($o->getAll());
     break;
 
     default: break;

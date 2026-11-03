@@ -11,9 +11,7 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
 ?>
     <main>
         <section>
-            <p>TODO: formulaire prise de rdv</p>
-
-            <div id="rdv_form_container">    
+            <div id="form_container">    
                 
             <?php
             $show_form = TRUE;
@@ -42,16 +40,16 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
                 <form action="index.php?page=rendez-vous" method="POST">
                     <h2>Prendre rendez-vous</h2>
 <!--
-                    <div class="rdv_form_container_item">
+                    <div class="form_container_item">
                         <label for="nom">Nom :</label><br />
                         <input type="text" id="nom" name="nom" value="<?php echo $_SESSION['nom'] ?? NULL; ?>" required>
                     </div>
-                    <div class="rdv_form_container_item">
+                    <div class="form_container_item">
                         <label for="prenom">Prénom :</label><br />
                         <input type="text" id="prenom" name="prenom" value="<?php echo $_SESSION['prenom'] ?? NULL; ?>" required>
                     </div>
 
-                    <div class="rdv_form_container_item">
+                    <div class="form_container_item">
                         <label for="email">Adresse e-mail :</label><br />
                         <input type="email" id="email" name="email" value="<?php echo $_SESSION['email'] ?? NULL; ?>" required>
                     </div>
@@ -60,7 +58,7 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
                     <label for="telephone">Téléphone :</label>
                     <input type="tel" id="telephone" name="telephone" required>
     -->
-                    <div class="rdv_form_container_item">
+                    <div class="form_container_item">
                         <label for="date">Date du rendez-vous :</label><br />
                         <input type="date" id="date" name="date" required>
                     </div>
@@ -76,12 +74,12 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
                     });
                     </script>
 
-                    <div class="rdv_form_container_item">
+                    <div class="form_container_item">
                         <label for="heure">Heure du rendez-vous (<?php echo $hmin; ?>h00 - <?php echo $hmax; ?>h00) :</label><br />
                         <input value="08:00" type="time" id="heure" name="heure" min="<?php echo $hmin; ?>:00" max="<?php echo $hmax; ?>:00" required>
                     </div>
 
-                    <div class="rdv_form_container_item">
+                    <div class="form_container_item">
                         <label for="motif">Motif du rendez-vous :</label><br />
                         <select id="motif" name="motif" required>
                             <option value="">-- Choisir un motif --</option>

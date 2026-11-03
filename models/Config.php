@@ -18,7 +18,7 @@ class Config
         return $requete->fetch();
     }
 
-    public function set($min, $max): bool
+    public function set(int $min, int $max): bool
     {
         $sql = 'UPDATE `config` SET `heure_min` = :min, `heure_max` = :max WHERE 1';
         $stmt = $this->db->prepare($sql);
