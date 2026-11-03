@@ -43,7 +43,7 @@ function regCheckAndDo() {
     .then(s => {
         if('1' === s) {
             alert("Merci, tu es inscrit! Temps de se connecter maintenant ;)");
-            window.document.location.assign('index.php?login');
+            window.document.location.assign('index.php?page=login');
         } else if('2' === s){
             alert('Impossible de créer ce compte (' + semail + ') car il existe déjà.');
         } else {

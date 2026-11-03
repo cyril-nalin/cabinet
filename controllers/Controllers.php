@@ -37,6 +37,7 @@ class Controllers {
 
 		switch($this->page) {
 			case 'rendez-vous':
+			case 'membre':
 				if($LOG_LEVEL < 1) {
 					header('Location: ./index.php?page=login');
 					exit;

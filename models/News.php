@@ -15,7 +15,7 @@ class News
     {
         $sql = 'SELECT *
                 FROM `news`
-                ORDER BY `id` ASC';
+                ORDER BY `date_news` DESC';
 
         $requete = $this->db->query($sql);
 
@@ -64,6 +64,7 @@ class News
             ]);
             return (1 === $stmt->rowCount()) ? '1' : '0';
         } catch (PDOException $e) {
+            //var_dump($e);
             return FALSE;
         }
     }

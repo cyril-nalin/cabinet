@@ -2,6 +2,7 @@
 require_once __DIR__ . '/_Top.php';
 require_once __DIR__ . '/../models/Person.php';
 
+$err = NULL;
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && array_key_exists('email', $_POST) && array_key_exists('password', $_POST) ){
     $mail = strtolower(trim($_POST['email']));
     $pwd = trim($_POST['password']);
@@ -9,6 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && array_key_exists('em
     $res = $o->validateLogin($mail, $pwd);
     if(FALSE !== $res) {
         $_SESSION['state'] = TRUE;
+        $_SESSION['client_id'] = $res['id'];
         $_SESSION['nom'] = $res['nom'];
         $_SESSION['prenom'] = $res['prenom'];
         $_SESSION['email'] = $res['email'];
@@ -16,6 +18,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && array_key_exists('em
 
         header('Location: index.php');
         exit;
+    } else {
+        $err = 'Les informations saisies ne correspondent pas.';
     }
 }
 ?>
@@ -29,6 +33,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST) && array_key_exists('em
                     <input type="password" id="password" name="password" value="" minlength="6" required />
                     <button type="submit" id="btn_log">Envoyer</button>
                 </form>
+                <?php
+                if($err) {
+                    echo '<p class="error">', $err, '</p>';
+                }
+                ?>
             </div>
         </section>
     </main>

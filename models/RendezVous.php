@@ -28,15 +28,30 @@ class RendezVous
 
     public function add($client_id, $date_rdv, $type_soin, $confirm = 0): int
     {
-        $sql = 'INSERT INTO `rdv` (`client_id`, `date_rdv`, `type_soin`, `confirm`) VALUES (:client_id, :date_rdv, :type_soin, :confirm)';
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-                'client_id' => $client_id,
-                'date_rdv' => $date_rdv,
-                'type_soin' => $type_soin,
-                'confirm' => $confirm
-            ]);
-        return $stmt->rowCount();
+        try{
+            $sql = 'SELECT COUNT(`id`) FROM `rdv` WHERE `date_rdv` = :date_rdv';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                    'date_rdv' => $date_rdv
+                ]);
+
+            if ((int) $stmt->fetchColumn() > 0) {
+                return -1;
+            }
+
+            $sql = 'INSERT INTO `rdv` (`client_id`, `date_rdv`, `type_soin`, `confirm`) VALUES (:client_id, :date_rdv, :type_soin, :confirm)';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                    'client_id' => $client_id,
+                    'date_rdv' => $date_rdv,
+                    'type_soin' => $type_soin,
+                    'confirm' => $confirm
+                ]);
+            return $stmt->rowCount();
+        }
+        catch (PDOException $e) {
+            return 0;
+        }
     }
     public function upd($id, $date, $confirm, $type_soin): int
     {

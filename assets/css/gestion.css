@@ -6,17 +6,33 @@
 
 .rdv_block_personal {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: bold;
 }
 
+.rdv_block_personal_name {
+    display: flex;
+    gap: 10px;
+}
+
+.rdv_block_editable {
+    display: flex;
+    gap: 10px;
+}
 .rdv_block_personal, .rdv_block_editable, .rdv_block_btns {
     margin: 5px;
 }
 
 .rdv_block_btns {
     display: flex;
+    flex-direction: column;
     gap:10px;
     border-radius: 10px;
+}
+
+.rdv_block_btns input {
+    width: 250px;
 }
 
 .rdv_block_btns input:hover {
@@ -26,10 +42,76 @@
 .hidden_block {
     display: none;
 }
+
+.rdv_not_confirmed {
+    background-color:rosybrown;
+}
+
+.rdv_confirmed {
+    background-color: lightgreen;
+}
+
+#block_gest {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: lightgrey;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+#block_gest textarea {
+    width: 90%;
+    min-height: 100px;
+}
+
+.news_block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+}
+
+.news_subblock_top {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.news_subblock_top img{
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+}
+
+
+.news_subblock_top input {
+    width: 250px;
+}
+
+.news_subblock_top textarea {
+    width: 95%;
+    height: 150px;
+}
+
+.news_subblock_bottom {
+    display: flex;
+    gap: 10px;
+}
+
+.person_block {
+    display: flex;
+    gap: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+}
 @media(max-width:500px) {
-    .rdv_block_personal {
-        flex-direction: column;
-    }
     .rdv_block_editable {
         display: flex;
         flex-direction: column;

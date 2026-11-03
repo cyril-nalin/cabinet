@@ -4,17 +4,33 @@ require_once __DIR__ . '/Person.php';
 require_once __DIR__ . '/News.php';
 
 $q = $_GET['q'] ?? NULL;
+/*
+if (!isset($_SESSION['nom'])) {
+    http_response_code(401);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Vous devez être connecté.'
+    ]);
+    exit;
+}*/
 
 switch($q) {
     case 'get_rdvs':
+        $ret = array();
         $o = new RendezVous();
         $rdv = $o->getAll();
         if(is_array($rdv) && !empty($rdv)) {
             $opersonels = new Person();
-            $ret = array();
+            
             foreach($rdv as $r) {
                 $infos = $opersonels->getByClientId($r['client_id']);
-
+                if(!is_array($infos) || empty($infos)) {
+                    $infos = [
+                        'nom' => '',
+                        'prenom' => '',
+                        'email' => ''
+                    ];
+                }   
                 $ret[] = [
                     'id' => $r['id'],
                     'client_id' => $r['client_id'],
@@ -26,9 +42,11 @@ switch($q) {
                     'email' => $infos['email']
                 ];
             }
-            header('Content-Type: application/json');
-            echo json_encode($ret);
         }
+        $s = json_encode($ret);
+        header('Content-length: ' . strlen($s));
+        header('Content-Type: application/json');
+        echo $s;
     break;
 
     case 'upd_rdvs':
@@ -45,6 +63,16 @@ switch($q) {
             $o = new RendezVous();
             echo $o->del($j->id);
         }
+    break;
+
+    case 'getall_news':
+        $o = new News();
+        $news = $o->getAll();
+        if(!is_array($news) || empty($news)) {
+            $news = [];
+        }
+        header('Content-Type: application/json');
+        echo json_encode($news);
     break;
 
     case 'add_news':
@@ -79,6 +107,12 @@ switch($q) {
         }
     break;
 
+    case 'getall_person':
+        $o = new Person();
+        header('Content-Type: application/json');
+        echo json_encode($o->getAll());
+    break;
+
     case 'del_person':
         $j = @json_decode(@file_get_contents('php://input'));
         if(is_object($j)) {
@@ -91,7 +125,7 @@ switch($q) {
         $j = @json_decode(@file_get_contents('php://input'));
         if(is_object($j)) {
             $o = new Person();
-            echo $o->upd($j->id, $j->nom, $j->prenom, $j->email, $j->password);
+            echo $o->upd($j->id, $j->nom, $j->prenom, $j->email);
         }
     break;
 

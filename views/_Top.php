@@ -30,7 +30,7 @@
                     <div id="header_block_bottom">
                         <div id="header_block_bottom_reglinks">
                             <a href="index.php?page=accueil">Accueil</a>
-                            <?php if($LOG_LEVEL >= 1) {?>
+                            <?php if(isset($LOG_LEVEL) && $LOG_LEVEL >= 1) {?>
                             <a href="index.php?page=rendez-vous">Prendre rendez-vous</a>
                             <?php }?>
                             <a href="index.php?page=services">Nos services</a>
@@ -41,17 +41,23 @@
                             <input type="button" id="btn_register" value="Inscription" onclick="window.location.assign('index.php?page=register')" />
                             <input type="button" id="btn_connect" value="Connexion" onclick="window.location.assign('index.php?page=login')" />
                             <?php }else {?>
-                            <input type="button" id="btn_test" value="Déconnexion" onclick="window.location.assign('index.php?page=logout')"/>
+                            <input type="button" id="btn_member" value="Mes infos" onclick="window.location.assign('index.php?page=membre')"/>
+                            <input type="button" id="btn_logout" value="Déconnexion" onclick="window.location.assign('index.php?page=logout')"/>
                             <?php }?>
                         </div>
                     </div>
                     <div id="header_block_bottom_adminlinks">
-                        <p>Gestion: </p>
-                        <?php if($LOG_LEVEL >= 2) {?>
-                        <a href="index.php?page=gestion">RDV</a>
-                        <a href="index.php?page=gestion">Clients</a>
-                        <a href="index.php?page=gestion">News</a>
-                        <?php }?>
+                        <?php
+                        if(isset($LOG_LEVEL) && $LOG_LEVEL >= 2) {
+                            echo '<p>Gestion: </p>';
+                            echo '<a href="index.php?page=gestion">RDV</a>';
+                            echo '<a href="index.php?page=gestion&q=news">News</a>';
+                            if($LOG_LEVEL >= 3) {
+                                echo '<a href="index.php?page=gestion&q=per">Clients</a>';
+                                echo '<a href="index.php?page=gestion&q=horaire">Horaires</a>';
+                            }
+                        }
+                        ?>
                     </div>
                 </nav>
 
