@@ -6,13 +6,16 @@ require_once __DIR__ . '/../models/Config.php';
 require_once __DIR__ . '/../models/Service.php';
 /*
 $o = new Service();
-$o->add(
-    array('type_soin', 'type'),
-    array('AUTRE', 'test')
-);
+$o->Push(['AUTRE', 'test']);
+$o->Push(['AUTRE', 'test2']);
+$o->PushFast(['AUTRE', 'test3']);
 var_dump($o->getAll());
+var_dump($o->getByColName('type', 'test'));
 $o->delByColName('type', 'test');
-var_dump($o->getAll());*/
+$o->delByColName('type', 'test2');
+$o->delByColName('type', 'test3');*/
+
+
 $EXTRA_HTML_HDRS = '<link rel="stylesheet" href="./assets/css/gestion.css"/><script type="text/javascript" src="./assets/js/gestion.js"></script>';
 require_once __DIR__ . '/_Top.php';
 
@@ -131,7 +134,7 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
             }//fin news
             else if(0 === strcmp('horaire', $type_gest)) {
                 $o = new Config();
-                $cfg = $o->get();
+                $cfg = $o->getLimited(1, 0, NULL, FALSE);
                 if(isset($_POST['heure_min'], $_POST['heure_max'])) {
                     $heure_min = intval(trim($_POST['heure_min']));
                     $heure_max = intval(trim($_POST['heure_max']));
@@ -142,15 +145,15 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
                             if($heure_min < 0 || $heure_min > 23 || $heure_max < 0 || $heure_max > 23) {
                                 echo "<p class='error'>Les heures doivent être comprises entre 0 et 23.</p>";
                             } else {
-                                $o->set($heure_min, $heure_max);
+                                $o->Update($cfg['id'], array($heure_min, $heure_max) );
                                 echo "<p class='success'>Les horaires ont été mis à jour avec succès.</p>";
-                                $cfg = $o->get();
                             }
                         }
                     } else {
                         echo "<p class='error'>Tous les champs sont requis.</p>";
                     }
                 }
+                $cfg = $o->getLimited(1, 0, NULL, FALSE);
                 ?>
                 <h3>Gestion des horaires</h3>
                 <div id="block_gest">
