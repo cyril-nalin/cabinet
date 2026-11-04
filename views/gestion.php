@@ -4,7 +4,15 @@ require_once __DIR__ . '/../models/Person.php';
 require_once __DIR__ . '/../models/News.php';
 require_once __DIR__ . '/../models/Config.php';
 require_once __DIR__ . '/../models/Service.php';
-
+/*
+$o = new Service();
+$o->add(
+    array('type_soin', 'type'),
+    array('AUTRE', 'test')
+);
+var_dump($o->getAll());
+$o->delByColName('type', 'test');
+var_dump($o->getAll());*/
 $EXTRA_HTML_HDRS = '<link rel="stylesheet" href="./assets/css/gestion.css"/><script type="text/javascript" src="./assets/js/gestion.js"></script>';
 require_once __DIR__ . '/_Top.php';
 

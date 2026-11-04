@@ -54,7 +54,7 @@
                             echo '<a href="index.php?page=gestion&q=news">News</a>';
                             if($LOG_LEVEL >= 3) {
                                 echo '<a href="index.php?page=gestion&q=per">Clients</a>';
-                                echo '<a href="index.php?page=gestion&q=horaire">Horaires</a>';
+                                echo '<a href="index.php?page=gestion&q=horaire">Horaires/Services</a>';
                             }
                         }
                         ?>

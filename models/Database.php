@@ -30,33 +30,40 @@ class Database
     }
 }
 
-class Table extends Database
+class Table
 {
     private PDO $db;
     private string $name;
 
-    public function __construct($name)
+    public function __construct()
     {
         $this->db = Database::getConnexion();
-        $this->name = $name;
+        $this->name = '';
     }
-    public function getDB() {
+    public function getDB() :PDO {
         return $this->db;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function setName($name) {
+        $this->name = $name;
     }
 
     public function getAll($order = NULL): array
     {
         if(!is_array($order)) {
-            $order = array('id', 'ASC');
+            $order = ['id', 'ASC'];
         }
         $sql = 'SELECT * FROM `' . $this->name . '` ORDER BY `' . $order[0] . '` ' . $order[1];
-        $requete = $this->db->query($sql);
+        $requete = $this->getDB()->query($sql);
         return $requete->fetchAll();
     }
 
     public function get($id): array {
         $sql = 'SELECT * FROM `' . $this->name . '` WHERE `id` = :id';
-        $stmt = $this->db->prepare($sql);
+        $stmt = $this->getDB()->prepare($sql);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
@@ -125,12 +132,22 @@ class Table extends Database
 
     public function del($id): int
     {
-        $sql = 'DELETE FROM `' . $this->name . '` WHERE `id` = :id';
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-                'id' => $id
-            ]);
-        return $stmt->rowCount();
+        return $this->delByColName('id', $id);
+    }
+
+    public function delByColName($col, $value): int
+    {
+        try {
+            $sql = 'DELETE FROM `' . $this->name . '` WHERE `' . $col . '` = :value';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                    'value' => $value
+                ]);
+            return $stmt->rowCount();
+        }
+        catch (PDOException $e) {
+            return 0;
+        }
     }
 }
 /*
