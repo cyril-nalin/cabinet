@@ -3,6 +3,7 @@ require_once __DIR__ . '/../models/Service.php';
 require_once __DIR__ . '/_Top.php';
 $o = new Service();
 $datas = $o->getAll();
+
 ?>
     <main>
         <section>
@@ -10,7 +11,9 @@ $datas = $o->getAll();
             <ul>
                 <?php
                 foreach($datas as $v) {
-                    echo '<li>', $v['type'], '</li>';
+                    if('.' !== $v['type']) {
+                        echo '<li>', $v['type'], '</li>';
+                    }
                 }
                 ?>
             </ul>

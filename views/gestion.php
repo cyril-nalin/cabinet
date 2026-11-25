@@ -143,13 +143,12 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
                         //$ser_cnt = intval(trim($_POST['ser_cnt']));
                         //$new_ser = array();
                         foreach($_POST as $k => $v) {
-                            $s->upd(intval(substr($k, 8)), array('type'), array($v));
-                            /*if(0 === strncasecmp('service-', $k, 8)) {
-                                $new_ser[] = array(
-                                    'id' => intval(substr($k, 8)),
-                                    'type' => $v
-                                );
-                            }*/
+                            //$s->upd(intval(substr($k, 8)), array('type'), array($v));
+                            if(0 === strncasecmp('service-', $k, 8)) {
+                                $s->upd(intval(substr($k, 8)), array('type'), array($v));
+                            } elseif(0 === strncasecmp('type_soin-', $k, 10)) {
+                                $s->upd(intval(substr($k, 10)), array('type_soin'), array($v));
+                            }
                         }
                         //var_dump($new_ser);
                         if($heure_min >= $heure_max) {
@@ -168,6 +167,7 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
                 }
                 $cfg = $o->getLimited(1, 0, NULL, FALSE);
                 $ser = $s->getAll();
+                $types_soins = Service::getTypes();
                 ?>
                 <h3>Gestion des horaires</h3>
                 <div id="block_gest">
@@ -183,6 +183,13 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
                         <?php
                         echo '<input type="hidden" name="ser_cnt" value="', count($ser), '" />';
                         foreach($ser as $k => $s) {
+                            echo '<select id="type_soin-' . $s['id'] . '" name="type_soin-' . $s['id'] . '">';
+                            foreach($types_soins as $t) {
+                                echo '<option value="' . $t . '" ';
+                                if($t === $s['type_soin']) echo 'selected';
+                                echo '>' . $t . '</option>';
+                            }
+                            echo '</select>';
                             $ss = 'service-' . $s['id'];
                             echo '<input type="text" id="' . $ss . '" name="' . $ss . '" value="' . $s['type'] . '" /><br />';
                         }

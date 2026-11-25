@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Database.php';
-require_once __DIR__ . '/Crypto.php';
+
 
 //TODO:En COURS DE REECRITURE DU CODE
 class Person /*extends Table*/
