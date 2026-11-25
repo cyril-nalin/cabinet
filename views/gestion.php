@@ -134,11 +134,24 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
             }//fin news
             else if(0 === strcmp('horaire', $type_gest)) {
                 $o = new Config();
+                $s = new Service();
                 $cfg = $o->getLimited(1, 0, NULL, FALSE);
                 if(isset($_POST['heure_min'], $_POST['heure_max'])) {
                     $heure_min = intval(trim($_POST['heure_min']));
                     $heure_max = intval(trim($_POST['heure_max']));
                     if(!empty($heure_min) && !empty($heure_max)) {
+                        //$ser_cnt = intval(trim($_POST['ser_cnt']));
+                        //$new_ser = array();
+                        foreach($_POST as $k => $v) {
+                            $s->upd(intval(substr($k, 8)), array('type'), array($v));
+                            /*if(0 === strncasecmp('service-', $k, 8)) {
+                                $new_ser[] = array(
+                                    'id' => intval(substr($k, 8)),
+                                    'type' => $v
+                                );
+                            }*/
+                        }
+                        //var_dump($new_ser);
                         if($heure_min >= $heure_max) {
                             echo "<p class='error'>L'heure d'ouverture doit être inférieure à l'heure de fermeture.</p>";
                         } else {
@@ -154,17 +167,29 @@ Gestion des horaires : Modifier les horaires d'ouverture du cabinet.
                     }
                 }
                 $cfg = $o->getLimited(1, 0, NULL, FALSE);
+                $ser = $s->getAll();
                 ?>
                 <h3>Gestion des horaires</h3>
                 <div id="block_gest">
                     <form action="index.php?page=gestion&q=horaire&a=upd" method="POST">
                         <label for="heure_min">Heure d'ouverture :</label><br />
                         <input type="text" id="heure_min" name="heure_min" value="<?php echo $cfg['heure_min']; ?>" required>
-                        <br /><br />
+                        <br />
                         <label for="heure_max">Heure de fermeture :</label><br />
                         <input type="text" id="heure_max" name="heure_max" value="<?php echo $cfg['heure_max']; ?>" required>
-                        <br /><br />
+                        <br />
+
+                        <p>Services:</p>
+                        <?php
+                        echo '<input type="hidden" name="ser_cnt" value="', count($ser), '" />';
+                        foreach($ser as $k => $s) {
+                            $ss = 'service-' . $s['id'];
+                            echo '<input type="text" id="' . $ss . '" name="' . $ss . '" value="' . $s['type'] . '" /><br />';
+                        }
+                        ?>
+                        <br />
                         <button type="submit">Mettre à jour</button>
+                    </form>
                 </div>
             <?php }
             ?>

@@ -3,8 +3,32 @@
 require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/Crypto.php';
 
-class Person
+//TODO:En COURS DE REECRITURE DU CODE
+class Person /*extends Table*/
 {
+/**    public function __construct() {
+        parent::__construct();
+        $this->setName('person');
+        $this->setFields(['nom', 'prenom', 'prenom', 'email', 'access', 'pwd']);
+    }
+
+    public function getByEmail($smail): array {
+        return $this->getByColName('email', $smail);
+    }
+
+    public function exists($email):bool {
+        return 0 !== $this->Count('email', $email);
+    }
+
+    public function validateLogin($email, $password){
+        return $this->CountFromArray(['email', 'pwd']], [$email, keygen($password)])
+    }
+
+    public function updSimple($id, $nom, $prenom) {
+        return $this->upd($id, array('nom','prenom'), array($nom, $prenom))
+    }
+*/
+
     private PDO $db;
 
     public function __construct()
@@ -51,19 +75,20 @@ class Person
 
     public function validateLogin($email, $password)
     {
-        $k = keygen($password);
         try {
             //$sql = 'SELECT `nom`,`prenom`,`email`,`access` FROM `person` WHERE `email` = :mail AND `pwd` = :password';
-            $sql = 'SELECT * FROM `person` WHERE `email` = :mail AND `pwd` = :password';
+            $sql = 'SELECT * FROM `person` WHERE `email` = :mail';
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                'mail'   => $email,
-                'password' => $k
+                'mail'   => $email
             ]);
-            return $stmt->fetch();
-            //return (1 === $stmt->rowCount());
+            $tmp = $stmt->fetch();
+            if(!is_array($tmp)) return FALSE;
+            var_dump(password_hash('testtest', PASSWORD_DEFAULT));
+            if(!password_verify($password, $tmp['pwd'])) return FALSE;
+            return $tmp;
         } catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
+            //throw new PDOException($e->getMessage(), (int)$e->getCode());
             return FALSE;
         }
         return FALSE;
@@ -84,7 +109,7 @@ class Person
     }
 
     public function add($nom, $prenom, $email, $password) {
-        $k = keygen($password);
+        $k = password_hash($password, PASSWORD_DEFAULT);
         try {
             $sql = 'SELECT COUNT(*) FROM `person` WHERE `email` = :email';
 
@@ -133,7 +158,7 @@ class Person
 
     public function upd($id, $nom, $prenom, $email, $password = NULL) {
         if(NULL !== $password) {
-            $k = keygen($password);
+            $k = password_hash($password, PASSWORD_DEFAULT);
             try {
                 $sql = 'UPDATE `person` SET `nom` = :nom, `prenom` = :prenom, `email` = :email, `pwd` = :pass WHERE `id` = :id';
                 

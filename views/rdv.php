@@ -4,7 +4,7 @@ require_once __DIR__ . '/../models/RendezVous.php';
 require_once __DIR__ . '/_Top.php';
 
 $o = new Config();
-$cfg = $o->get();
+$cfg = $o->getLimited(1, 0, NULL, FALSE);
 
 $hmin = sprintf('%02u', $cfg['heure_min']);
 $hmax = sprintf('%02u', $cfg['heure_max']);

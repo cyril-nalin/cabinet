@@ -48,9 +48,13 @@ class Table
         return $this->getDB()->query($sql);
     }
 
+    private function Prepare(string $sql):PDOStatement|FALSE {
+        return $this->getDB()->prepare($sql);
+    }
+
     private function Execute(string $sql, array $key_vals, bool $get_all = FALSE) {
         try{
-            $stmt = $this->getDB()->prepare($sql);
+            $stmt = $this->Prepare($sql);
             $stmt->execute($key_vals);
             return $get_all ?
                 [$stmt->fetchAll(), $stmt->rowCount(), (int) $stmt->fetchColumn()] :
@@ -60,6 +64,17 @@ class Table
             return array(NULL, NULL, NULL);
         }
     }
+//OPERATIONS SENSIBLE
+    function Delete() {
+        $this->Query('DELETE FROM `' . $this->name . '` WHERE 1');
+    }
+    function Truncate() {
+        $this->Query('TRUNCATE TABLE `' . $this->name . '`');
+    }
+    function Drop() {
+        $this->Query('DROP TABLE `' . $this->name . '`');
+    }
+
 //GET/SET OBJET
     public function getDB() :PDO {
         return $this->db;
@@ -102,17 +117,16 @@ class Table
     public function getFirst():array
     {
         $q = $this->Query('SELECT * FROM `' . $this->name . '` LIMIT 1');
-        return $get_all ? $q->fetchAll() : $q->fetch();
+        return $q->fetch();
     }
 
     public function getByColName(string $col, mixed $value): ?array {
         try{
             if(!is_string($value)) $value = (string)$value;
-            $ret = $stmt->Execute(
+            return $this->Execute(
                 $sql = 'SELECT * FROM `' . $this->name . '` WHERE `' . $col . '` = :value',
                 ['value' => $value]
-            );
-            return $ret[0];
+            )[0];
         }
         catch (PDOException $e) {
             return NULL;
@@ -126,7 +140,7 @@ class Table
          return $this->get($id);
     }
 
-    public function getByClientId($id): array {
+    public function getByClientId(mixed $id): array {
         return $this->getByColName('client_id', $id);
     }
 //ADD - Ajoute des données
@@ -217,15 +231,14 @@ class Table
     }
 
 //DEL - Suppréssion des données
-    public function del($id): int
-    {
+    public function del(mixed $id): int {
         return $this->delByColName('id', $id);
     }
 
-    public function delByColName($col, $value): int
+    public function delByColName(string $col, mixed $value): int
     {
         try {
-            return $this->Execute('DELETE FROM `' . $this->name . '` WHERE `' . $col . '` = :value', ['value' => $value])[1];
+            return $this->Execute('DELETE FROM `' . $this->name . '` WHERE `' . $col . '` = :value', ['value' => (string)$value])[1];
         }
         catch (PDOException $e) {
             return 0;
@@ -233,13 +246,38 @@ class Table
     }
 
 //COUNT - Compter des données
-    public function count(string $col, string|int $value): int
+    public function Count(string $col, string|int $value): int
     {
         try {
             $sql = 'SELECT COUNT(*) FROM `' . $this->name . '` WHERE `' . $col . '` = :value';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(['value' => $value]);
             return (int) $stmt->fetchColumn();
+        }
+        catch (PDOException $e) {
+            //throw new PDOException($e->getMessage(), (int)$e->getCode());
+            return 0;
+        }
+    }   
+    
+    public function CountFromArray(array $keys, array $values): int
+    {
+        $n = count($keys);
+        if(0 === $n || $n !== count($values)) return 0;
+        try{
+            $params = array();
+            $i = 0;
+            $k = '';
+            for($i = 0;$i < $n; $i++) {
+                $k .= '`' . $keys[$i] . '`';
+                $k .= "='" . $keys[$i] . "'";
+                if($i + 1 !== $n) {
+                    $k .= ',';
+                }
+                $params[$keys[$i]] = $values[$i];
+            }
+            $sql = 'SELECT COUNT * FROM `' . $this->name . '` WHERE ' . $k;
+            return $this->Query($sql);
         }
         catch (PDOException $e) {
             return 0;
