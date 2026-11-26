@@ -156,7 +156,20 @@ class Person /*extends Table*/
         }
     }
 
-    public function upd($id, $nom, $prenom, $email, $password = NULL) {
+    public function upd($id, $nom, $prenom, $email, $password = NULL, $access = NULL) {
+        $access_changed = FALSE;
+        if(NULL !== $access) {
+            $sql = 'UPDATE `person` SET `access` = :access WHERE `id` = :id';
+            
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                'id' => $id,
+                'access'   => $access
+            ]);
+            if (1 === $stmt->rowCount())  {
+                $access_changed = TRUE;
+            }
+        }
         if(NULL !== $password) {
             $k = password_hash($password, PASSWORD_DEFAULT);
             try {
@@ -170,7 +183,7 @@ class Person /*extends Table*/
                     'email' => $email,
                     'pwd' => $k
                 ]);
-                return (1 === $stmt->rowCount()) ? '1' : '0';
+                return (1 === $stmt->rowCount() || $access_changed) ? '1' :  '0';
             } catch (PDOException $e) {
                 return FALSE;
             }
@@ -185,7 +198,7 @@ class Person /*extends Table*/
                     'prenom' => $prenom,
                     'email' => $email
                 ]);
-                return (1 === $stmt->rowCount()) ? '1' : '0';
+                return (1 === $stmt->rowCount() || $access_changed) ? '1' : '0';
             } catch (PDOException $e) {
                 return FALSE;
             }

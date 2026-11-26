@@ -181,16 +181,26 @@ function runPersonnelDatas() {
             let enom = document.createElement('input');
             let eprenom = document.createElement('input');
             let eemail = document.createElement('input');
+            let eaccess = document.createElement('select');
             let btn_edit = document.createElement('input');
             let btn_del = document.createElement('input');
-            
+            let access = ['CLIENT', 'PERSONNEL', 'ADMIN'];
+
             enom.value = pers.nom;
             enom.type = 'text';
             eprenom.value = pers.prenom;
             eprenom.type = 'text';
             eemail.type = 'text';
             eemail.value = pers.email;
-            
+
+            access.forEach(a => {
+                let tmp = document.createElement('option');
+                tmp.textContent = a;
+                if(a === pers.access) tmp.selected = true;
+                eaccess.appendChild(tmp);
+            })
+            if('ADMIN' === pers.access) eaccess.disabled = true;
+
             btn_edit.type = 'button';
             btn_edit.value = 'Modifier';
             btn_edit.addEventListener('click', e => {
@@ -204,7 +214,8 @@ function runPersonnelDatas() {
                                 id: pers.id,
                                 nom: enom.value,
                                 prenom: eprenom.value,
-                                email: eemail.value
+                                email: eemail.value,
+                                access: eaccess.value
                             })
                         })
                         .then(r => r.text())
@@ -248,6 +259,8 @@ function runPersonnelDatas() {
             block.classList.add('person_block');
             block.appendChild(eprenom);
             block.appendChild(eemail);
+            block.appendChild(eaccess);
+            
             block.appendChild(btn_edit);
             block.appendChild(btn_del);
             document.getElementById('block_gest').appendChild(block);

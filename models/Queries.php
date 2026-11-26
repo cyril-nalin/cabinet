@@ -126,7 +126,7 @@ switch($q) {
         $j = @json_decode(@file_get_contents('php://input'));
         if(is_object($j)) {
             $o = new Person();
-            echo $o->upd($j->id, $j->nom, $j->prenom, $j->email);
+            echo $o->upd($j->id, $j->nom, $j->prenom, $j->email, NULL, $j->access);
         }
     break;
 
