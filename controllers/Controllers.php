@@ -56,7 +56,4 @@ class Controllers {
 	}
 }
 
-require __DIR__ . '/HomeController.php';
-require __DIR__ . '/RendezVousController.php';
-
 ?>
