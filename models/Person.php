@@ -84,7 +84,6 @@ class Person /*extends Table*/
             ]);
             $tmp = $stmt->fetch();
             if(!is_array($tmp)) return FALSE;
-            var_dump(password_hash('testtest', PASSWORD_DEFAULT));
             if(!password_verify($password, $tmp['pwd'])) return FALSE;
             return $tmp;
         } catch (PDOException $e) {
