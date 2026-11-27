@@ -1,41 +1,15 @@
-<?php
-require_once __DIR__ . '/../models/Config.php';
-require_once __DIR__ . '/../models/RendezVous.php';
-require_once __DIR__ . '/_Top.php';
-
-$o = new Config();
-$cfg = $o->getLimited(1, 0, NULL, FALSE);
-
-$hmin = sprintf('%02u', $cfg['heure_min']);
-$hmax = sprintf('%02u', $cfg['heure_max']);
-?>
     <main>
         <section>
             <div id="form_container">    
                 
             <?php
-            $show_form = TRUE;
-            if(isset($_POST['date'], $_POST['heure'])) {
-                $date = trim($_POST['date']);
-                $heure = trim($_POST['heure']);
-                $motif = trim($_POST['motif']);
-
-                if(!empty($date) && !empty($heure)) {
-                    $o = new RendezVous();
-                    $result = $o->add($_SESSION['client_id'], $date . ' ' . $heure, $motif, 0); 
-                    if(1 === $result) {
-                        echo "<p>Votre demande de rendez-vous a été enregistrée avec succès.</p>";
-                        $show_form = FALSE;
-                    } else if(-1 === $result) {
-                        echo "<p>Le rendez-vous est déjà pris pour cette date et cette heure.</p>";
-                    } else {
-                        echo "<p>Une erreur est survenue lors de l'enregistrement de votre demande. Veuillez réessayer.</p>";
-                    }
-                } else {
-                    echo "<p>Tous les champs sont requis.</p>";
-                }
+            if(isset($err) && !empty($err)) {
+                echo '<p>', $err, '</p>';
             }
-            if($show_form) {
+            if(isset($success) && !empty($success)) {
+                echo '<p>', $success, '</p>';
+            }
+            if(isset($show_form) && $show_form) {
             ?>
                 <form action="index.php?page=rendez-vous" method="POST">
                     <h2>Prendre rendez-vous</h2>
@@ -81,6 +55,3 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
 
         </section>
     </main>
-<?php
-require_once __DIR__ . '/_Bottom.php';
-?>

@@ -76,6 +76,11 @@ class Controllers {
 				$obj->Display($LOG_STATE, $LOG_LEVEL);
 				break;
 
+			case 'rdv':
+				$obj = new RdvControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
 			case 'membre':
 				$obj = new MembreControl();
 				$obj->Display($LOG_STATE, $LOG_LEVEL);

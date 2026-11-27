@@ -88,6 +88,46 @@ class RegisterControl extends BaseControl {
     }
 }
 
+class RdvControl extends BaseControl {
+    public function Display($logs, $logl) {
+        parent::ShowTop('', $logs, $logl);
+        require_once __DIR__ . '/../models/Config.php';
+        require_once __DIR__ . '/../models/RendezVous.php';
+
+        $o = new Config();
+        $cfg = $o->getLimited(1, 0, NULL, FALSE);
+
+        $hmin = sprintf('%02u', $cfg['heure_min']);
+        $hmax = sprintf('%02u', $cfg['heure_max']);
+
+        $show_form = TRUE;
+        $err = NULL;
+        $success = NULL;
+        if(isset($_POST['date'], $_POST['heure'])) {
+            $date = trim($_POST['date']);
+            $heure = trim($_POST['heure']);
+            $motif = trim($_POST['motif']);
+
+            if(!empty($date) && !empty($heure)) {
+                $o = new RendezVous();
+                $result = $o->add($_SESSION['client_id'], $date . ' ' . $heure, $motif, 0); 
+                if(1 === $result) {
+                    $success = 'Votre demande de rendez-vous a été enregistrée avec succès.';
+                    $show_form = FALSE;
+                } else if(-1 === $result) {
+                    $err = 'Le rendez-vous est déjà pris pour cette date et cette heure.';
+                } else {
+                    $err = 'Une erreur est survenue lors de l\'enregistrement de votre demande. Veuillez réessayer.';
+                }
+            } else {
+                $err = 'Tous les champs sont requis.';
+            }
+        }
+        require_once 'views/rdv.php';
+        parent::ShowBottom();
+    }
+}
+
 class LoginControl extends BaseControl {
     public function Display($logs, $logl) {
         require_once __DIR__ . '/../models/Person.php';
