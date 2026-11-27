@@ -23,7 +23,7 @@ class News
         return $requete->fetchAll();
     }
 	
-    public function getById($id): array
+    public function getById(string|int $id): array
     {
         $sql = 'SELECT * FROM `news` WHERE `id` = :id';
 		$stmt = $this->db->prepare($sql);

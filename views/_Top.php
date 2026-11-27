@@ -63,9 +63,4 @@
 
             </div>
         </header>
-        <div id="body_content"><?php 
-        if(isset($_SESSION['prenom'])) {
-           // echo '<h2>Bienvenue ', $_SESSION['prenom'], '</h2>';
-        }
-        
-        ?>
+        <div id="body_content">

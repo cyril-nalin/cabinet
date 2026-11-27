@@ -1,4 +1,7 @@
 <?php 
+
+require_once('BaseControl.php');
+
 class Controllers {
 	private ?string $page;
 	private string $ftype;
@@ -11,7 +14,7 @@ class Controllers {
 	public function __destruct() {
 	}
 	
-	public function setPage($spage): void {
+	public function setPage(string $spage): void {
 		$this->page = $spage;
 	}
 	
@@ -34,7 +37,6 @@ class Controllers {
 				default:  break;
 			}
 		}
-
 		switch($this->page) {
 			case 'rendez-vous':
 			case 'membre':
@@ -50,9 +52,41 @@ class Controllers {
 					exit;
 				}
 			default: break;
-
 		}
-		require __DIR__ . '/../views/' . $this->page . '.' . $this->ftype;
+
+		switch($this->page) {
+
+			case 'about':
+				$obj = new AboutControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
+			case 'login':
+				$obj = new LoginControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
+			case 'services':
+				$obj = new ServicesControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
+			case 'register':
+				$obj = new RegisterControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
+			case 'membre':
+				$obj = new MembreControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
+			default:
+				require __DIR__ . '/../views/' . $this->page . '.' . $this->ftype;
+				break;
+		}
+
+		
 	}
 }
 

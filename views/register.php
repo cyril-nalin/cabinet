@@ -1,7 +1,3 @@
-<?php
-$EXTRA_HTML_HDRS = '<link rel="stylesheet" href="./assets/css/register.css" />';
-require_once __DIR__ . '/_Top.php';
-?>
     <main>
         <section>
             <form id="reg_form" action="" method="POST">
@@ -38,7 +34,4 @@ require_once __DIR__ . '/_Top.php';
             <div id="reg_err_msg"> </div>
         </section>
     </main>
-<?php
-require_once __DIR__ . '/_Bottom.php';
-?>
-<script type="text/javascript" src="./assets/js/register.js"></script>
+    <script type="text/javascript" src="./assets/js/register.js"></script>

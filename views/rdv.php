@@ -39,25 +39,6 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
             ?>
                 <form action="index.php?page=rendez-vous" method="POST">
                     <h2>Prendre rendez-vous</h2>
-<!--
-                    <div class="form_container_item">
-                        <label for="nom">Nom :</label><br />
-                        <input type="text" id="nom" name="nom" value="<?php echo $_SESSION['nom'] ?? NULL; ?>" required>
-                    </div>
-                    <div class="form_container_item">
-                        <label for="prenom">Prénom :</label><br />
-                        <input type="text" id="prenom" name="prenom" value="<?php echo $_SESSION['prenom'] ?? NULL; ?>" required>
-                    </div>
-
-                    <div class="form_container_item">
-                        <label for="email">Adresse e-mail :</label><br />
-                        <input type="email" id="email" name="email" value="<?php echo $_SESSION['email'] ?? NULL; ?>" required>
-                    </div>
--->
-    <!--
-                    <label for="telephone">Téléphone :</label>
-                    <input type="tel" id="telephone" name="telephone" required>
-    -->
                     <div class="form_container_item">
                         <label for="date">Date du rendez-vous :</label><br />
                         <input type="date" id="date" name="date" required>
@@ -92,10 +73,6 @@ $hmax = sprintf('%02u', $cfg['heure_max']);
                             <option value="6">Autre</option>
                         </select>
                     </div>
-    <!--
-                    <label for="message">Informations complémentaires :</label>
-                    <textarea id="message" name="message" rows="4"></textarea>
--->
                     <button type="submit">Confirmer ma demande</button>
 
                 </form>

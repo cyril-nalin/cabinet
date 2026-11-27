@@ -1,7 +1,3 @@
-<?php
-$EXTRA_HTML_HDRS = '<link rel="stylesheet" href="./assets/css/about.css"/>';
-require_once __DIR__ . '/_Top.php';
-?>
     <main>
         <section>
             <div id="aboutus">
@@ -104,6 +100,3 @@ require_once __DIR__ . '/_Top.php';
             </div>
         </section>
     </main>
-<?php
-require_once __DIR__ . '/_Bottom.php';
-?>
