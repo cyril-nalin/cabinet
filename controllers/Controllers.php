@@ -86,6 +86,11 @@ class Controllers {
 				$obj->Display($LOG_STATE, $LOG_LEVEL);
 				break;
 
+			case 'home':
+				$obj = new HomeControl();
+				$obj->Display($LOG_STATE, $LOG_LEVEL);
+				break;
+
 			default:
 				require __DIR__ . '/../views/' . $this->page . '.' . $this->ftype;
 				break;

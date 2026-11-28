@@ -22,6 +22,23 @@ class News
 
         return $requete->fetchAll();
     }
+
+    public function getAllVisible(): array
+    {
+        $sql = 'SELECT * FROM `news` WHERE `visible` != 0 ORDER BY `date_news` DESC';
+
+        $requete = $this->db->query($sql);
+
+        return $requete->fetchAll();
+    }
+    public function getLimitedVisible(int $nb, int $start = 0): array
+    {
+        $sql = 'SELECT * FROM `news` WHERE `visible` != 0 ORDER BY `date_news` DESC LIMIT 0,' . $nb;
+
+        $requete = $this->db->query($sql);
+
+        return $requete->fetchAll();
+    }
 	
     public function getById(string|int $id): array
     {

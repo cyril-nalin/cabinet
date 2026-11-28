@@ -88,6 +88,36 @@ class RegisterControl extends BaseControl {
     }
 }
 
+class HomeControl extends BaseControl {
+    public function Display($logs, $logl) {
+        parent::ShowTop('', $logs, $logl);
+
+        require_once __DIR__ . '/../models/News.php';
+        require_once __DIR__ . '/../models/Person.php';
+        $NEWS_DATA = array();
+        $idx = 0;
+        $o = new News();
+        $data = $o->getLimitedVisible(4);
+
+        foreach($data as $n) {
+            $p = new Person();
+            $infos = $p->getByClientId($n['client_id']);
+            $dte = new DateTime($n['date_news'], new DateTimeZone('Europe/Paris'));
+            $s = $dte->format('d/m/Y H:i:s');
+
+            $NEWS_DATA[$idx]['titre'] = $n['titre'];
+            $NEWS_DATA[$idx]['news_date'] = $s;
+            $NEWS_DATA[$idx]['lien_media'] = $n['lien_media'];
+            $NEWS_DATA[$idx]['contenu'] = $n['contenu'];
+            $NEWS_DATA[$idx]['nom'] = $infos['nom'];
+            $NEWS_DATA[$idx++]['prenom'] = $infos['prenom'];
+        }
+        require_once 'views/home.php';
+        parent::ShowBottom();
+    }
+}
+
+
 class RdvControl extends BaseControl {
     public function Display($logs, $logl) {
         parent::ShowTop('', $logs, $logl);
